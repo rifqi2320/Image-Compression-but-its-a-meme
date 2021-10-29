@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Online Image Compressor</title>
+
+	<!-- Bootstrap CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+	</script>
+
+</head>
+
+<body>
+	<h1 class="text-center">Online Image Compressor</h1>
+	<p class="text-center">Compress any image using SVD algorithm</p>
+
+	<div class="container">
+		<hr>
+	</div>
+
+	<div class="container my-5">
+		<div>
+			<label for="imgInput"></label>Input image: <br>
+			<input type="file" name="imgInput" type="image/*" class="pb-3" onchange="showImgInput(event)"> <br>
+			Image compression rate: <input name="compressScale" id="inputScale" type="range" oninput="changeScale()">
+			<span id="inputPercentage">50</span>%
+		</div>
+
+		<div class="row my-4">
+			<div class="col">
+				<h2>
+					Before: <br>
+				</h2>
+				<!-- image here -->
+				<img id="imgInput" class="img-fluid"
+					src="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large">
+			</div>
+			<div class="col">
+				<h2>
+					After: <br>
+				</h2>
+				<a href="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large" download="output.jpg">
+					<!-- image here -->
+					<img id="imgOutput" class="img-fluid"
+						src="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large">
+				</a>
+			</div>
+		</div>
+
+		<p class="mt-4">
+			Image pixel difference percentage:
+			<span id="pixelDiff">0</span>%
+			<br>
+			Image compression time:
+			<span id="compressTime">0</span> sec
+		</p>
+
+	</div>
+
+	<!-- JS Scripts -->
+	<script>
+		var imgInput = document.getElementById("imgInput")
+		var imgOutput = document.getElementById("imgOutput")
+		changeScale = () => {
+			document.getElementById("inputPercentage").innerHTML = document.getElementById("inputScale").value
+			document.getElementById("pixelDiff").innerHTML = document.getElementById("inputScale").value
+		}
+		showImgInput = (event) => { // referensi: https://stackoverflow.com/a/27165977
+			imgInput = document.getElementById("imgInput")
+			imgInput.src = URL.createObjectURL(event.target.files[0])
+			imgInput.onload = () => {
+				URL.revokeObjectURL(imgInput.src)
+			}
+			showImgOutput(event)
+		}
+		// TODO: connect backend di sini
+		showImgOutput = (event) => {
+			imgOutput = document.getElementById("imgOutput");
+			imgOutput.src = URL.createObjectURL(event.target.files[0])
+			imgOutput.onload = () => {
+				URL.revokeObjectURL(imgOutput.src)
+			}
+		}
+
+		var imgOutput = document.getElementById("imgOutput")
+		imgOutput.addEventListener("mouseenter", () => {
+			imgOutput.style.filter += "brightness(150%)"
+		})
+		imgOutput.addEventListener("mouseleave", () => {
+			imgOutput.style.removeProperty("filter")
+		})
+	</script>
+</body>
+
+</html>

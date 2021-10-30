@@ -1,0 +1,77 @@
+{% extends "index.html" %}
+{% block content %}
+
+<h1>From upload html</h1>
+
+{% for messages in get_flashed_messages() %}
+  <script>
+    const messages = "{{ messages }}";
+
+    if (messages.isArray) {
+      for (var i=0; i<messages.length; i++) {
+        alert(messages[i]);
+      }
+    } else {
+      alert(messages)
+    }
+  </script>
+{% endfor %}
+
+<form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+  <div>
+    <div class="form-group">
+      {{form.image.label(class="form-control-file")}}
+      {{form.image(class="form-control-label")}}
+      {% if form.image.errors%}
+        {% for error in form.image.errors%}
+          <span class="text-danger">{{error}}</span></br>
+        {%endfor%}
+      {%endif%}
+    </div>
+
+    <div class="form-group">
+      {{form.rate.label(class="form-control-label")}}
+      {% if form.rate.errors %}
+        {{ form.rate(class="form-control form-control-md is-invalid") }}
+        <div class="invalid-feedback">
+          {%for error in form.rate.errors%}
+            <span>{{error}}</span>
+          {%endfor%}
+        </div>
+      {%else%}
+        {{form.rate(class="form-control form-control-md")}}
+      {%endif%}
+    </div>
+    <div class="form-group">
+      {{form.submit(class="btn btn-outline-info")}}
+    </div>  
+  </div>
+</form>
+
+
+{% if isLoading %}
+  <div id="loading" style="display:none;">
+    <h1>Please wait</h1>
+  </div>
+{%endif%}
+
+
+{% if rate and (rate >= 1 and rate <= 100) %}
+  <div>
+    <h1>
+      RATE COMPRESSION: <span>{{rate}}%</span>
+    </h1>
+  </div>
+{%endif%}
+
+<div class="image-container">
+  {% if imgFilename and (not isLoading) %}
+    <h1>Your image</h1>
+    <img src="{{url_for('static', filename='uploads/'+imgFilename)}}">
+
+    <h1>Compressed image</h1>
+    <img src="{{url_for('static', filename='downloads/'+imgFilename)}}">
+  {%endif%}
+</div>
+
+{% endblock content %}

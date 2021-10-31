@@ -21,10 +21,11 @@
   <div>
     <div class="form-group">
       {{form.image.label(class="form-control-file")}}
-      {{form.image(class="form-control-label")}}
-      {% if form.image.errors%}
+      {{form.image(class="pb-3", onchange="showImgInput(event)")}}
+      {% if form.image.errors %}
         {% for error in form.image.errors%}
-          <span class="text-danger">{{error}}</span></br>
+          <span class="text-danger">{{error}}</span>
+          <br />
         {%endfor%}
       {%endif%}
     </div>
@@ -39,7 +40,10 @@
           {%endfor%}
         </div>
       {%else%}
-        {{form.rate(class="form-control form-control-md")}}
+        {{form.rate(id="inputScale", type="range", oninput="changeScale()", min="1", max="100")}}
+        <span id="inputPercentage">
+          {{rate}}
+        </span>%
       {%endif%}
     </div>
     <div class="form-group">
@@ -55,23 +59,53 @@
   </div>
 {%endif%}
 
-
-{% if rate and (rate >= 1 and rate <= 100) %}
+<!-- {% if rate and (rate >= 1 and rate <= 100) %}
   <div>
     <h1>
       RATE COMPRESSION: <span>{{rate}}%</span>
     </h1>
   </div>
-{%endif%}
+{%endif%} -->
 
-<div class="image-container">
+<div class="row my-4">
   {% if imgFilename and (not isLoading) %}
     <h1>Your image</h1>
     <img src="{{url_for('static', filename='uploads/'+imgFilename)}}">
 
     <h1>Compressed image</h1>
     <img src="{{url_for('static', filename='downloads/'+imgFilename)}}">
+  {%else%}
+    <div class="col">
+      <h2>
+        Before: <br>
+      </h2>
+      <!-- image here -->
+      <img id="imgInput" class="img-fluid"
+        src="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large">
+    </div>
+    <div class="col">
+      <h2>
+        After: <br>
+      </h2>
+      <a href="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large" download="output.jpg">
+        <!-- image here -->
+        <img id="imgOutput" class="img-fluid"
+          src="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large">
+      </a>
+    </div>
   {%endif%}
 </div>
+
+<p class="mt-4">
+  Image pixel difference percentage:
+  <span id="pixelDiff">
+    {{rate}}
+  </span> %
+  <br>
+  Image compression time:
+  <span id="compressTime">
+    {{compressionDuration}}
+  </span> sec
+</p>
 
 {% endblock content %}

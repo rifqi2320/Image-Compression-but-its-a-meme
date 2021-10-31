@@ -27,10 +27,18 @@ def save_image(img):
 @app.route('/home', methods=['GET', 'POST'])
 def home():
   form = PostForm()
-  rate = None
+  rate = 50
   imgFilename = ""
   isLoading = True
-  return render_template('upload.html', form=form, rate=rate, imgFilename=imgFilename, isLoading=isLoading)
+  compressionDuration = 0
+  return render_template(
+    'upload.html', 
+    form=form, 
+    rate=rate, 
+    imgFilename=imgFilename, 
+    isLoading=isLoading,
+    compressionDuration=compressionDuration
+  )
 
 @app.route('/upload',methods=['GET','POST'])
 def upload():
@@ -45,9 +53,16 @@ def upload():
       imgFilename = save_image(form.image.data)
       ori_image = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'], imgFilename)
       compressed = os.path.join(current_app.root_path, app.config['DOWNLOAD_FOLDER'], imgFilename)
-      compress(ori_image, compressed, rate)
+      compressionDuration = compress(ori_image, compressed, rate)
       isLoading = False
-  return render_template('upload.html', form=form, rate=rate, imgFilename=imgFilename, isLoading=isLoading)
+  return render_template(
+    'upload.html', 
+    form=form, 
+    rate=rate, 
+    imgFilename=imgFilename, 
+    isLoading=isLoading, 
+    compressionDuration=compressionDuration
+  )
 
 if __name__=='__main__':
 	app.run(debug=True)

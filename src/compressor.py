@@ -17,6 +17,10 @@ def compress(original,compressed,rate):
 
     for i in range(rows):
         for j in range(cols): 
-            pixels[i, j] = (rate, pixels[i,j][1], pixels[i,j][2])
+            pixels[i, j] = (rate*2, pixels[i,j][1], pixels[i,j][2])
 
     imageio.imwrite(compressed, image)
+    
+    compressionDuration = 4.6
+    
+    return compressionDuration

@@ -5,14 +5,15 @@ from wtforms.validators import NumberRange,InputRequired
 
 class PostForm(FlaskForm):
     image = FileField(
-        'Insert picture', 
+        label='Input image: ',
+        _name= 'imgInput',
         validators=[
             InputRequired(),
             FileAllowed(['jpg', 'png','jpeg'])
         ]
     )
     rate = IntegerField(
-        'Enter rate of compression',
+        'Image compression rate: ', 
     	validators = [
             InputRequired(),
             NumberRange(min=1, max=100)

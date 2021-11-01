@@ -1,4 +1,4 @@
-from flask import Flask, render_template, current_app, flash
+from flask import Flask, render_template, current_app, flash, send_file
 from src.forms import PostForm
 from src.compressor import compress
 import secrets, os, werkzeug
@@ -62,6 +62,15 @@ def upload():
     imgFilename=imgFilename, 
     isLoading=isLoading, 
     compressionDuration=compressionDuration
+  )
+
+@app.route('/download/<filename>') 
+def return_files_tut(filename):
+  file_path = app.config['DOWNLOAD_FOLDER'] + filename
+  return send_file(
+    file_path, 
+    as_attachment=True, 
+    attachment_filename=''
   )
 
 if __name__=='__main__':

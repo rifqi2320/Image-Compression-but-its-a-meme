@@ -59,41 +59,52 @@
   </div>
 {%endif%}
 
-<!-- {% if rate and (rate >= 1 and rate <= 100) %}
-  <div>
-    <h1>
-      RATE COMPRESSION: <span>{{rate}}%</span>
-    </h1>
-  </div>
-{%endif%} -->
-
 <div class="row my-4">
-  {% if imgFilename and (not isLoading) %}
-    <h1>Your image</h1>
-    <img src="{{url_for('static', filename='uploads/'+imgFilename)}}">
-
-    <h1>Compressed image</h1>
-    <img src="{{url_for('static', filename='downloads/'+imgFilename)}}">
-  {%else%}
-    <div class="col">
-      <h2>
-        Before: <br>
-      </h2>
-      <!-- image here -->
-      <img id="imgInput" class="img-fluid"
+  <div class="col">
+    <h2>
+      Before: <br>
+    </h2>
+    <!-- image here -->
+    {% if imgFilename and (not isLoading) %}
+      <img 
+        id="imgInput" 
+        class="img-fluid" 
+        src="{{url_for('static', filename='uploads/'+imgFilename)}}">
+    {%else%}
+      <img 
+        id="imgInput" 
+        class="img-fluid"
         src="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large">
-    </div>
-    <div class="col">
-      <h2>
-        After: <br>
-      </h2>
-      <a href="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large" download="output.jpg">
-        <!-- image here -->
-        <img id="imgOutput" class="img-fluid"
+    {%endif%}
+  </div>
+  <div class="col">
+    <h2>
+      After: <br>
+    </h2>
+      <!-- image here -->
+      {% if imgFilename and (not isLoading) %}
+        <a href="/download/{{imgFilename}}" target="blank">
+          <img 
+          id="imgOutput" 
+          class="img-fluid" 
+          src="{{url_for('static', filename='downloads/'+imgFilename)}}">       
+        </a>
+      {%else%}
+        <img 
+          id="imgOutput" 
+          class="img-fluid"
           src="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large">
-      </a>
-    </div>
-  {%endif%}
+      {%endif%}
+    </a>
+  </div>
+
+  {% if imgFilename and (not isLoading) %}
+    <a href="/download/{{imgFilename}}" target="blank">
+      <button class='btn btn-outline-info'>
+        Download
+      </button>
+    </a>
+  {% endif %}
 </div>
 
 <p class="mt-4">

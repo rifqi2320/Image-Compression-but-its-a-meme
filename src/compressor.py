@@ -16,7 +16,7 @@ def simultaneous_power_iteration(A,k):
 def matrix_compress(M, rate):
   M = np.array(M).copy()
   n, m = M.shape
-  if n >= m:
+  if n < m:
     nn = int(n * rate)
     L = M @ M.T
     Sn, Un = simultaneous_power_iteration(L, nn)
@@ -45,7 +45,7 @@ def matrix_compress(M, rate):
 
 def compress(original,compressed,rate):
     start_time = time.time()
-
+    rate = rate/100
     image = Image.open(original)
     
     img_array = np.asarray(image)

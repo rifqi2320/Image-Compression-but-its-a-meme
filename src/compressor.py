@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import sqrt
 import time
 from PIL import Image
 
@@ -20,6 +21,7 @@ def matrix_compress(M, rate):
     nn = int(n * rate)
     L = M @ M.T
     Sn, Un = simultaneous_power_iteration(L, nn)
+    Sn = sqrt(Sn)
     U = np.zeros((n,n))
     U[:n, :nn] = Un
     S = np.zeros((n,m))
@@ -32,6 +34,7 @@ def matrix_compress(M, rate):
     mm = int(m * rate)
     R = M.T @ M
     Sn, Vn = simultaneous_power_iteration(R, mm)
+    Sn = sqrt(Sn)
     S = np.zeros((n,m))
     S[:mm, :mm] = np.diag(Sn)
     V = np.zeros((m,m))

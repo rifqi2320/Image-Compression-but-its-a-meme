@@ -66,7 +66,7 @@
     </h2>
     <!-- input image -->
     {% if imgFilename and (not isLoading) %}
-    <img id="imgInput" class="" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
+    <img id="imgInput" class="img-fluid" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
     {%else%}
     <img id="imgInput" class="img-fluid" src="../static/assets/default.jpg">
     {%endif%}
@@ -78,7 +78,7 @@
     <!-- output image -->
     {% if imgFilename and (not isLoading) %}
     <a href="/download/{{imgFilename}}" target="blank">
-      <img id="imgOutput" class="" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
+      <img id="imgOutput" class="img-fluid" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
     </a>
     {%else%}
     <img id="imgOutput" class="img-fluid" src="../static/assets/default_compressed.jpg">

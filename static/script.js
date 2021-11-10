@@ -7,7 +7,7 @@ var imgInput = document.getElementById("imgInput")
 var imgOutput = document.getElementById("imgOutput")
 changeScale = () => {
     document.getElementById("inputPercentage").innerHTML = document.getElementById("inputScale").value
-    document.getElementById("pixelDiff").innerHTML = document.getElementById("inputScale").value
+    // document.getElementById("pixelDiff").innerHTML = document.getElementById("inputScale").value
 }
 showImgInput = (event) => { // referensi: https://stackoverflow.com/a/27165977
     imgInput = document.getElementById("imgInput")

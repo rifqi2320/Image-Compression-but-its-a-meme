@@ -40,7 +40,7 @@
         {%endfor%}
       </div>
       {%else%}
-      {{form.rate(id="inputScale", type="range", oninput="changeScale()", min="1", max="100")}}
+      {{form.rate(id="inputScale", type="range", oninput="changeScale()", min="1", max="100", value="1")}}
       <span id="inputPercentage">
         {{rate}}
       </span>%
@@ -64,24 +64,24 @@
     <h2>
       Before: <br>
     </h2>
-    <!-- image here -->
+    <!-- input image -->
     {% if imgFilename and (not isLoading) %}
-    <img id="imgInput" class="img-fluid" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
+    <img id="imgInput" class="" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
     {%else%}
-    <img id="imgInput" class="img-fluid" src="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large">
+    <img id="imgInput" class="img-fluid" src="../static/assets/default.jpg">
     {%endif%}
   </div>
   <div class="col">
     <h2>
       After: <br>
     </h2>
-    <!-- image here -->
+    <!-- output image -->
     {% if imgFilename and (not isLoading) %}
     <a href="/download/{{imgFilename}}" target="blank">
-      <img id="imgOutput" class="img-fluid" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
+      <img id="imgOutput" class="" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
     </a>
     {%else%}
-    <img id="imgOutput" class="img-fluid" src="https://i.kym-cdn.com/photos/images/original/001/369/583/626.jpg_large">
+    <img id="imgOutput" class="img-fluid" src="../static/assets/default_compressed.jpg">
     {%endif%}
     </a>
   </div>

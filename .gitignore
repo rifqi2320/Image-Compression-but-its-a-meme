@@ -1,5 +1,4 @@
-*.jpg
-*.png
-*.jpeg
+/static/downloads/*
+/static/uploads/*
 
 src/__pycache__

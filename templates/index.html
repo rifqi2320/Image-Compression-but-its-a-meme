@@ -20,15 +20,17 @@
 </head>
 
 <body>
-  <div class="container">
-    <div id="app" class="my-3">
-      <!-- <h1 class="header">styled using CSS</h1> -->
-      <div class="container">
-        <h1 class="text-center pt-4">Binjai Compressor</h1>
-        <p class="text-center">Salam dari Binjai 🤜🌴 🤜🌴 🤜🌴</p>
+  <div class="container mt-3 px-5">
+    <div id="app">
+      <div class="d-flex w-100">
+        <img src="/static/assets/palm-tree-emoji.png">
+        <div class="d-flex flex-column justify-content-center align-items-start">
+          <h1 class="text-left pb-1">Binjai Compressor</h1>
+          <p class="text-left">Salam dari Binjai! 🤜🌴</p>
+        </div>
       </div>
       <hr>
-      <div class="p-3">
+      <div>
         {% block content %}{% endblock %}
       </div>
     </div>

@@ -1,8 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
 
-<!--h1>From upload html</h1-->
-
 {% for messages in get_flashed_messages() %}
 <script>
   const messages = "{{ messages }}";
@@ -17,14 +15,14 @@
 </script>
 {% endfor %}
 
+<!-- upload file -->
 <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
-  
   <div class="row">
     <div class="col">
         <div>
           <div class="form-group">
             {{form.image.label(class="form-control-file")}}
-            {{form.image(class="pb-3", onchange="showImgInput(event)")}}
+            {{form.image(accept="image/*", class="pb-2 btn btn-success", onchange="showImgInput(event)")}}
             {% if form.image.errors %}
             {% for error in form.image.errors%}
             <span class="text-danger">{{error}}</span>
@@ -32,67 +30,61 @@
             {%endfor%}
             {%endif%}
           </div>
-        <div class="form-group">
-          {{form.rate.label(class="form-control-label")}}
-          {% if form.rate.errors %}
-          {{ form.rate(class="form-control form-control-md is-invalid") }}
-          <div class="invalid-feedback">
-            {%for error in form.rate.errors%}
-            <span>{{error}}</span>
-            {%endfor%}
+          <div class="form-group">
+            {{form.rate.label(class="form-control-label")}}
+            {% if form.rate.errors %}
+            {{ form.rate(class="form-control form-control-md is-invalid") }}
+            <div class="invalid-feedback">
+              {%for error in form.rate.errors%}
+              <span>{{error}}</span>
+              {%endfor%}
+            </div>
+            {%else%}
+            {{form.rate(id="inputScale", type="range", oninput="changeScale()", min="1", max="100", value="1")}}
+            <span id="inputPercentage">
+              {{rate}}
+            </span>%
+            {%endif%}
           </div>
-          {%else%}
-          {{form.rate(id="inputScale", type="range", oninput="changeScale()", min="1", max="100", value="1")}}
-          <span id="inputPercentage">
-            {{rate}}
-          </span>%
-          {%endif%}
-        </div>
       </div>
     </div>
-    <div class="col d-flex align-items-center">
-      <div class="form-group">
-        {{form.submit(class="btn btn-outline-info", onclick="displayLoading()")}}
-      </div>
+    <div class="form-group d-flex align-items-center">
+      {{form.submit(class="btn btn-success", onclick="displayLoading()")}}
     </div>
   </div>
 </form>
 
-<!-- buat loading animation -->
-<div id="loading" class="text-center d-none">
+<!-- loading animation -->
+<div id="loading" class="text-center d-none py-5">
   <img src="../static/assets/loading.gif" height="256" class="my-3">
   <br>
-  Sedang mengompress...
+  <i>Salam dari Binjai!</i>
 </div>
 
+<!-- hasil -->
 {% if imgFilename and (not isLoading) %}
-<div id="result" class="">
-  <div class="row my-4">
-    <div class="col">
-      <h2>
-        Before: <br>
-      </h2>
+<div id="result">
+  <div class="row">
+    <div class="col-sm">
+      <h2>Before: </h2>
       <!-- input image -->
-      <img id="imgInput" class="img-fluid" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
-      <!--img id="imgInput" class="img-fluid" src="../static/assets/sample.jpg"-->
+      <img id="imgInput" class="img-fluid d-flex" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
       
     </div>
-    <div class="col">
-      <h2>
-        After: <br>
-      </h2>
-      <!-- output image -->
-      <a href="/download/{{imgFilename}}" target="blank">
-        <img id="imgOutput" class="img-fluid" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
-      </a>
-      <!--img id="imgOutput" class="img-fluid" src="../static/assets/sample_compressed.jpg"-->
-      </a>
+    <div id="after" class="col-sm">
+      <h2>After: </h2>
+      <div class="w-100">
+        <div id="imgOutput" class="d-flex position-relative">
+          <!-- download button -->
+          <a id="downloadButton" href="/download/{{imgFilename}}"
+            class="max-w-100 btn btn-success position-absolute bottom-0 mb-3 mx-3" target="blank">
+            Download
+          </a>
+          <!-- output image -->
+          <img class="w-100 img-fluid d-flex" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
+        </div>
+      </div>
     </div>
-    <a href="/download/{{imgFilename}}" target="blank">
-      <button class='btn btn-outline-info'>
-        Download
-      </button>
-    </a>
   <p class="mt-4">
     Image pixel difference percentage:
     <span id="pixelDiff">

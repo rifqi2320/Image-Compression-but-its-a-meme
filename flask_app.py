@@ -29,7 +29,7 @@ def home():
   form = PostForm()
   rate = 1
   imgFilename = ""
-  isLoading = True
+  isLoading = False
   compressionDuration = 0
   return render_template(
     'upload.html', 

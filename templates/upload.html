@@ -18,93 +18,89 @@
 {% endfor %}
 
 <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
-  <div>
-    <div class="form-group">
-      {{form.image.label(class="form-control-file")}}
-      {{form.image(class="pb-3", onchange="showImgInput(event)")}}
-      {% if form.image.errors %}
-      {% for error in form.image.errors%}
-      <span class="text-danger">{{error}}</span>
-      <br />
-      {%endfor%}
-      {%endif%}
-    </div>
-
-    <div class="form-group">
-      {{form.rate.label(class="form-control-label")}}
-      {% if form.rate.errors %}
-      {{ form.rate(class="form-control form-control-md is-invalid") }}
-      <div class="invalid-feedback">
-        {%for error in form.rate.errors%}
-        <span>{{error}}</span>
-        {%endfor%}
+  
+  <div class="row">
+    <div class="col">
+        <div>
+          <div class="form-group">
+            {{form.image.label(class="form-control-file")}}
+            {{form.image(class="pb-3", onchange="showImgInput(event)")}}
+            {% if form.image.errors %}
+            {% for error in form.image.errors%}
+            <span class="text-danger">{{error}}</span>
+            <br />
+            {%endfor%}
+            {%endif%}
+          </div>
+        <div class="form-group">
+          {{form.rate.label(class="form-control-label")}}
+          {% if form.rate.errors %}
+          {{ form.rate(class="form-control form-control-md is-invalid") }}
+          <div class="invalid-feedback">
+            {%for error in form.rate.errors%}
+            <span>{{error}}</span>
+            {%endfor%}
+          </div>
+          {%else%}
+          {{form.rate(id="inputScale", type="range", oninput="changeScale()", min="1", max="100", value="1")}}
+          <span id="inputPercentage">
+            {{rate}}
+          </span>%
+          {%endif%}
+        </div>
       </div>
-      {%else%}
-      {{form.rate(id="inputScale", type="range", oninput="changeScale()", min="1", max="100", value="1")}}
-      <span id="inputPercentage">
-        {{rate}}
-      </span>%
-      {%endif%}
     </div>
-    <div class="form-group">
-      {{form.submit(class="btn btn-outline-info")}}
+    <div class="col d-flex align-items-center">
+      <div class="form-group">
+        {{form.submit(class="btn btn-outline-info", onclick="displayLoading()")}}
+      </div>
     </div>
   </div>
 </form>
 
+<!-- buat loading animation -->
+<div id="loading" class="text-center d-none">
+  <img src="../static/assets/loading.gif" height="256" class="my-3">
+  <br>
+  Sedang mengompress...
+</div>
 
-{% if isLoading %}
-<div id="loading" style="display:none;">
-  <h1>Please wait</h1>
+{% if imgFilename and (not isLoading) %}
+<div id="result" class="">
+  <div class="row my-4">
+    <div class="col">
+      <h2>
+        Before: <br>
+      </h2>
+      <!-- input image -->
+      <img id="imgInput" class="img-fluid" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
+      <!--img id="imgInput" class="img-fluid" src="../static/assets/sample.jpg"-->
+      
+    </div>
+    <div class="col">
+      <h2>
+        After: <br>
+      </h2>
+      <!-- output image -->
+      <a href="/download/{{imgFilename}}" target="blank">
+        <img id="imgOutput" class="img-fluid" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
+      </a>
+      <!--img id="imgOutput" class="img-fluid" src="../static/assets/sample_compressed.jpg"-->
+      </a>
+    </div>
+  <p class="mt-4">
+    Image pixel difference percentage:
+    <span id="pixelDiff">
+      {{rate}}
+    </span> %
+    <br>
+    Image compression time:
+    <span id="compressTime">
+      {{compressionDuration}}
+    </span> sec
+  </p>
 </div>
 {%endif%}
 
-<div class="row my-4">
-  <div class="col">
-    <h2>
-      Before: <br>
-    </h2>
-    <!-- input image -->
-    {% if imgFilename and (not isLoading) %}
-    <img id="imgInput" class="img-fluid" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
-    {%else%}
-    <img id="imgInput" class="img-fluid" src="../static/assets/default.jpg">
-    {%endif%}
-  </div>
-  <div class="col">
-    <h2>
-      After: <br>
-    </h2>
-    <!-- output image -->
-    {% if imgFilename and (not isLoading) %}
-    <a href="/download/{{imgFilename}}" target="blank">
-      <img id="imgOutput" class="img-fluid" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
-    </a>
-    {%else%}
-    <img id="imgOutput" class="img-fluid" src="../static/assets/default_compressed.jpg">
-    {%endif%}
-    </a>
-  </div>
-
-  {% if imgFilename and (not isLoading) %}
-  <a href="/download/{{imgFilename}}" target="blank">
-    <button class='btn btn-outline-info'>
-      Download
-    </button>
-  </a>
-  {% endif %}
-</div>
-
-<p class="mt-4">
-  Image pixel difference percentage:
-  <span id="pixelDiff">
-    {{rate}}
-  </span> %
-  <br>
-  Image compression time:
-  <span id="compressTime">
-    {{compressionDuration}}
-  </span> sec
-</p>
 
 {% endblock content %}

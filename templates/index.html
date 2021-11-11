@@ -2,30 +2,39 @@
 <html lang="en">
 
 <head>
+  <!-- metadata & favicon -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/static/assets/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/static/assets/favicon.ico" type="image/x-icon">
+  <title>Binjai Compressor</title>
+
+  <!-- bootstrap cdn -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-  <title>Online Image Compressor</title>
+
 </head>
 
 <body>
-  <div id="app">
-    <!-- <h1 class="header">styled using CSS</h1> -->
-    <h1 class="text-center">Online Image Compressor</h1>
-    <p class="text-center">Compress images using SVD algorithm</p>
-
-    <div class="container">
+  <div class="container">
+    <div id="app" class="my-3">
+      <!-- <h1 class="header">styled using CSS</h1> -->
+      <div class="container">
+        <h1 class="text-center pt-4">Binjai Compressor</h1>
+        <p class="text-center">Salam dari Binjai 🤜🌴 🤜🌴 🤜🌴</p>
+      </div>
       <hr>
-      {% block content %}{% endblock %}
+      <div class="p-3">
+        {% block content %}{% endblock %}
+      </div>
     </div>
-
   </div>
 
+  <!-- cdn  -->
   <script type="text/javascript" src="{{ url_for('static', filename='script.js')}}"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

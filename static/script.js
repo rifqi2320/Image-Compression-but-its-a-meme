@@ -26,6 +26,11 @@ showImgOutput = (event) => {
     }
 }
 
+displayLoading = () => {
+    document.getElementById("loading").classList.remove("d-none")
+    document.getElementById("result").classList.add("d-none")
+}
+
 var imgOutput = document.getElementById("imgOutput")
 imgOutput.addEventListener("mouseenter", () => {
     imgOutput.style.filter += "brightness(150%)"

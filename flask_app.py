@@ -27,7 +27,7 @@ def save_image(img):
 @app.route('/home', methods=['GET', 'POST'])
 def home():
   form = PostForm()
-  rate = 1
+  rate = 51
   imgFilename = ""
   isLoading = False
   compressionDuration = 0

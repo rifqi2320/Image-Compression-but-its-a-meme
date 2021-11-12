@@ -17,8 +17,8 @@
 
 <!-- upload file -->
 <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
-  <div class="row w-75">
-    <div class="col-sm">
+  <div class="w-75">
+    <div>
         <div>
           <div class="form-group">
             {{form.image.label(class="form-control-file")}}
@@ -40,7 +40,7 @@
               {%endfor%}
             </div>
             {%else%}
-            {{form.rate(id="inputScale", type="range", oninput="changeScale()", min="1", max="100", value="1")}}
+            {{form.rate(id="inputScale", type="range", oninput="changeScale()", min="1", max="100")}}
             <span id="inputPercentage">
               {{rate}}
             </span>%
@@ -48,8 +48,8 @@
           </div>
       </div>
     </div>
-    <div class="col-sm form-group d-flex align-items-center">
-      {{form.submit(class="btn btn-success", onsubmit="displayLoading()")}}
+    <div class="form-group d-flex align-items-center">
+      {{form.submit(class="btn btn-success", onclick="displayLoading()")}}
     </div>
   </div>
 </form>
@@ -68,20 +68,20 @@
     <div class="col-sm mt-3">
       <h2>Before: </h2>
       <!-- input image -->
-      <img id="imgInput" class="img-fluid d-flex" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
+      <img id="imgInput" class="w-100 img-fluid d-flex" src="{{url_for('static', filename='uploads/'+imgFilename)}}">
       
     </div>
     <div id="after" class="col-sm mt-3">
       <h2>After: </h2>
-      <div class="max-w-75">
+      <div>
         <div id="imgOutput" class="d-flex position-relative">
           <!-- download button -->
           <a id="downloadButton" href="/download/{{imgFilename}}"
-            class="max-w-100 btn btn-success position-absolute bottom-0 mb-3 mx-3" target="blank">
+            class="btn btn-success position-absolute bottom-0 mb-3 mx-3">
             Download
           </a>
           <!-- output image -->
-          <img class="img-fluid d-flex" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
+          <img class="w-100 img-fluid d-flex" src="{{url_for('static', filename='downloads/'+imgFilename)}}">
         </div>
       </div>
     </div>

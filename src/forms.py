@@ -5,7 +5,7 @@ from wtforms.validators import NumberRange,InputRequired
 
 class PostForm(FlaskForm):
     image = FileField(
-        label='Input image: ',
+        label='',
         _name= 'imgInput',
         validators=[
             InputRequired(),
@@ -19,4 +19,4 @@ class PostForm(FlaskForm):
             NumberRange(min=1, max=100)
         ]
     )
-    submit = SubmitField('Submit')
+    submit = SubmitField('Salam dari binjai!')

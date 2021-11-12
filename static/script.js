@@ -33,8 +33,8 @@ displayLoading = () => {
 
 var imgOutput = document.getElementById("imgOutput")
 imgOutput.addEventListener("mouseenter", () => {
-    imgOutput.style.filter += "brightness(150%)"
+    document.getElementById("downloadButton").classList.remove("d-none")
 })
 imgOutput.addEventListener("mouseleave", () => {
-    imgOutput.style.removeProperty("filter")
+    document.getElementById("downloadButton").classList.add("d-none")
 })

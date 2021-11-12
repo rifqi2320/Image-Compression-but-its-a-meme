@@ -1,6 +1,4 @@
 body {
-  background: green;
+  background: #CCE6CC;
+  font-family: sans-serif
 }
-
-#app {
-  background-color: rgba(255, 255, 255, 0.95);

@@ -2,6 +2,7 @@ import numpy as np
 from numpy import sqrt
 import time
 from PIL import Image
+import random
 
 def simultaneous_power_iteration(A,k):
   n, m = A.shape
@@ -14,6 +15,13 @@ def simultaneous_power_iteration(A,k):
 
   return np.diag(R), Q
 
+def addRandomNoise(arr):
+  _THRESHOLD = 1e-10
+  newArr = arr.copy()
+  for i in range(len(arr)):
+    newArr[i] = random.uniform(_THRESHOLD, 10 * _THRESHOLD) if arr[i] < _THRESHOLD else arr[i]
+  return newArr
+
 def matrix_compress(M, rate):
   M = np.array(M).copy()
   n, m = M.shape
@@ -22,6 +30,7 @@ def matrix_compress(M, rate):
     print(nn)
     L = M @ M.T
     Sn, Un = simultaneous_power_iteration(L, nn)
+    Sn = addRandomNoise(Sn)
     Sn = sqrt(np.abs(Sn))
     U = np.zeros((n,n))
     U[:n, :nn] = Un
@@ -36,6 +45,7 @@ def matrix_compress(M, rate):
     print(mm)
     R = M.T @ M
     Sn, Vn = simultaneous_power_iteration(R, mm)
+    Sn = addRandomNoise(Sn)
     Sn = sqrt(np.abs(Sn))
     S = np.zeros((n,m))
     S[:mm, :mm] = np.diag(Sn)
@@ -78,3 +88,11 @@ def compress(original,compressed,rate):
 
         
     return time.time() - start_time
+  
+def main():
+  path = "../static/uploads/cb4bdcfabdf99ea5.png" #e74653fdec5ddc5f.jpg" "static\uploads\
+  time = compress(path,path,10)
+  print(time)
+
+if __name__ == "__main__":
+  main()

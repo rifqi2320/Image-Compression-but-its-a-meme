@@ -18,7 +18,8 @@ def matrix_compress(M, rate):
   M = np.array(M).copy()
   n, m = M.shape
   if n < m:
-    nn = int(n * rate)
+    nn = max(1, int((m*n) * rate/(100*(m+n+1))))
+    print(nn)
     L = M @ M.T
     Sn, Un = simultaneous_power_iteration(L, nn)
     Sn = sqrt(np.abs(Sn))
@@ -31,7 +32,8 @@ def matrix_compress(M, rate):
     mm, _ = Vn.shape
     V[:mm, :m] = Vn
   else:
-    mm = int(m * rate)
+    mm = max(1, int((m*n) * rate/(100*(m+n+1))))
+    print(mm)
     R = M.T @ M
     Sn, Vn = simultaneous_power_iteration(R, mm)
     Sn = sqrt(np.abs(Sn))
@@ -48,10 +50,12 @@ def matrix_compress(M, rate):
 
 def compress(original,compressed,rate):
     start_time = time.time()
-    rate = rate/100
     image = Image.open(original)
-    
-    img_array = np.asarray(image)
+
+    if image.mode == 'P' or image.mode == 'L':
+        img_array = np.asarray(image.convert("RGBA"))
+    else:
+        img_array = np.asarray(image)
 
     if img_array.shape[-1] == 3:
       R,G,B = np.squeeze(np.split(img_array, img_array.shape[-1], -1), axis=-1).astype(float)

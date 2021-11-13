@@ -22,7 +22,7 @@
         <div>
           <div class="form-group">
             {{form.image.label(class="form-control-file")}}
-            {{form.image(accept="image/*", class="pb-2 btn btn-success", onchange="showImgInput(event)")}}
+            {{form.image(accept="image/png, image/jpeg", class="pb-2 btn btn-success", onchange="showImgInput(event)")}}
             {% if form.image.errors %}
             {% for error in form.image.errors%}
             <span class="text-danger">{{error}}</span>

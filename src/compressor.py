@@ -27,7 +27,6 @@ def matrix_compress(M, rate):
   n, m = M.shape
   if n < m:
     nn = max(1, int((m*n) * rate/(100*(m+n+1))))
-    print(nn)
     L = M @ M.T
     Sn, Un = simultaneous_power_iteration(L, nn)
     Sn = addRandomNoise(Sn)
@@ -42,7 +41,6 @@ def matrix_compress(M, rate):
     V[:mm, :m] = Vn
   else:
     mm = max(1, int((m*n) * rate/(100*(m+n+1))))
-    print(mm)
     R = M.T @ M
     Sn, Vn = simultaneous_power_iteration(R, mm)
     Sn = addRandomNoise(Sn)

@@ -1,4 +1,4 @@
-/static/downloads/*
-/static/uploads/*
+/src/static/downloads/*
+/src/static/uploads/*
 
 src/__pycache__

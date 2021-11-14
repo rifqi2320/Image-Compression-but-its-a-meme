@@ -42,12 +42,12 @@ pipenv install -r requirements.txt
 You need to open virtual environment if you don't open it yet and then launch `flask_app.py`
 ```
 pipenv shell
-python flask_app.py
+python src/flask_app.py
 ```
 Note if you open this project using linux / mac / wsl, perhaps you need run these commands instead:
 ```
 pipenv shell --python /usr/bin/python3
-python flask_app.py
+python src/flask_app.py
 ```
 
 ## Developed by

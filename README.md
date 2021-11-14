@@ -1,13 +1,14 @@
 # Binjai Compressor
 
-> This project is a website application for image compression that is developed for second major assignment of IF2123 Geometric and Linear Algebra course. This website uses Vanilla JavaScript for Frontend, Flask for Backend, Pillow for image extraction, and Numpy for matrix manipulation.
+> This project is a website application for image compression that is developed for second major assignment of IF2123 Geometric and Linear Algebra course. This website uses Vanilla JavaScript for Frontend, Flask for Backend, Pillow for image extraction, and Numpy for matrix manipulation. You can access this website by host this website by following steps on the [Setup](#setup) and [How to Run](#how-to-run) or you can directly access it from this [site](http://malikrafsan.pythonanywhere.com/)
 
 ## Table of Contents
-- [Technologies Used](#technologies-used)
-- [Features](#features)
-- [Setup](#setup)
-- [How to Run](#how-to-run)
-- [Developed by](#developed-by)
+  - [Table of Contents](#table-of-contents)
+  - [Technologies Used](#technologies-used)
+  - [Features](#features)
+  - [Setup](#setup)
+  - [How to Run](#how-to-run)
+  - [Developed by](#developed-by)
 
 ## Technologies Used
 - Flask

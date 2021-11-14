@@ -6,7 +6,6 @@ from wtforms.validators import NumberRange,InputRequired
 class PostForm(FlaskForm):
     image = FileField(
         label='',
-        _name= 'imgInput',
         validators=[
             InputRequired(),
             FileAllowed(['jpg', 'png','jpeg'])
